@@ -1,5 +1,15 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js';
+//import ceilingTextures from './ceilingTextures.js'; // Import ceiling textures
+import {
+    colorTexture,
+    displacementTexture,
+    aoTexture,
+    emissionTexture,
+    metalnessTexture,
+    normalGLTexture,
+    roughnessTexture,
+  } from './ceilingTextures.js';
 
 // Set up scene, camera, renderer
 const w = window.innerWidth;
@@ -28,23 +38,6 @@ const wallMaterial = new THREE.MeshBasicMaterial({
     side: THREE.DoubleSide,
 });
 
-const colorTexture = textureLoader.load("textures/color.jpg");
-const displacementTexture = textureLoader.load("textures/dis.jpg");
-const aoTexture = textureLoader.load("textures/ao.jpg");
-const emissionTexture = textureLoader.load("textures/emi.jpg");
-const metalnessTexture = textureLoader.load("textures/met.jpg");
-const normalGLTexture = textureLoader.load("textures/normgl.jpg");
-const roughnessTexture = textureLoader.load("textures/rou.jpg");
-
-// Set texture parameters
-colorTexture.wrapS = colorTexture.wrapT = THREE.RepeatWrapping;
-displacementTexture.wrapS = displacementTexture.wrapT = THREE.RepeatWrapping;
-aoTexture.wrapS = aoTexture.wrapT = THREE.RepeatWrapping;
-emissionTexture.wrapS = emissionTexture.wrapT = THREE.RepeatWrapping;
-metalnessTexture.wrapS = metalnessTexture.wrapT = THREE.RepeatWrapping;
-normalGLTexture.wrapS = normalGLTexture.wrapT = THREE.RepeatWrapping;
-roughnessTexture.wrapS = roughnessTexture.wrapT = THREE.RepeatWrapping;
-
 const ceilingMaterial = new THREE.MeshBasicMaterial({
     map: colorTexture,
     displacementMap: displacementTexture,
@@ -56,7 +49,7 @@ const ceilingMaterial = new THREE.MeshBasicMaterial({
     roughnessMap: roughnessTexture,
     displacementScale: 0.1,
     side: THREE.DoubleSide,
-});
+}); 
 
 // Set the new dimensions for the rectangular room
 const roomWidth = 15;
