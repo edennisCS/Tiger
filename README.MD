@@ -14,3 +14,5 @@ Tiger three.js experience for the web
 - "Tiger" (https://skfb.ly/oZYZZ) by Batstarr is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
 - "Modern Bench 1" (https://skfb.ly/6VIxM) by Elasta Kristya is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+
+- [Video by Nicky Pe from Pexels](https://www.pexels.com/video/a-tiger-walking-inside-a-cage-7246228/)
