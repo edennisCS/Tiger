@@ -10,7 +10,7 @@ const emissionTexture = textureLoader.load("glass/glass.jpg");
 //const metalnessTexture = textureLoader.load("glass/met.jpg");
 const normalGLTexture = textureLoader.load("glass/normal.jpg");
 const roughnessTexture = textureLoader.load("glass/rou.jpg");
-const heightTexture = textureLoader.load("glass/height.jpg");
+//const heightTexture = textureLoader.load("glass/height.jpg");
 
 // Set texture parameters
 colorTexture.wrapS = colorTexture.wrapT = THREE.RepeatWrapping;
@@ -20,7 +20,7 @@ emissionTexture.wrapS = emissionTexture.wrapT = THREE.RepeatWrapping;
 //metalnessTexture.wrapS = metalnessTexture.wrapT = THREE.RepeatWrapping;
 normalGLTexture.wrapS = normalGLTexture.wrapT = THREE.RepeatWrapping;
 roughnessTexture.wrapS = roughnessTexture.wrapT = THREE.RepeatWrapping;
-heightTexture.wrapS = roughnessTexture.wrapT = THREE.RepeatWrapping;
+//heightTexture.wrapS = roughnessTexture.wrapT = THREE.RepeatWrapping;
 
 export {
     colorTexture,
@@ -28,7 +28,7 @@ export {
     aoTexture,
     emissionTexture,
     //metalnessTexture,
-    heightTexture,
+    //heightTexture,
     normalGLTexture,
     roughnessTexture,
   };

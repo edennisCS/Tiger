@@ -15,8 +15,9 @@ Tiger three.js experience for the web
 
 - "Modern Bench 1" (https://skfb.ly/6VIxM) by Elasta Kristya is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
-- "SM Door" (https://skfb.ly/6tuyz) by DenisFernandes is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- "Door_ Wooden_18_MB" (https://skfb.ly/p8xVp) by Mehdi Shahsavan is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
 - [Video by Nicky Pe from Pexels](https://www.pexels.com/video/a-tiger-walking-inside-a-cage-7246228/)
 
 - Glass texture https://3dtextures.me/2019/12/27/glass-blocks-001a/
+

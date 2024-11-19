@@ -144,7 +144,7 @@ const videoMaterial = new THREE.MeshBasicMaterial({
 });
 
 // Define dimensions for the screen
-const screenGeometry = new THREE.BoxGeometry(2.8, 1.6, 0.05); // Width, height, and depth of the screen
+const screenGeometry = new THREE.BoxGeometry(5, 3, 0.05); // Width, height, and depth of the screen
 const screenMesh = new THREE.Mesh(screenGeometry, videoMaterial);
 
 // Position the screen in front of the far wall
@@ -290,6 +290,24 @@ function loadPlantModel() {
 }
 
 
+
+// Load the door model
+function loadDoorModel() {
+    return new Promise((resolve, reject) => {
+        loader.load('door.glb', (gltf) => {
+            const doorModel = gltf.scene;
+
+            // Adjust the position, rotation, and scale of the door
+            doorModel.position.set(0, roomHeight / 2, roomDepth / 2 - 0.05); // Position the door on the back wall
+            doorModel.rotation.y = Math.PI; // Rotate the door to face the room
+            doorModel.scale.set(0.5, 0.54, 0.5); // Scale the door model to make it fit the wall
+
+            // Add the door model to the scene
+            scene.add(doorModel);
+            resolve();
+        }, undefined, reject);
+    });
+}
 
 
 
@@ -461,7 +479,7 @@ function render() {
 }
 
 // Load models and start rendering
-Promise.all([loadModel(), loadBenchModel(), loadPlantModel()]).then(() => {
+Promise.all([loadModel(), loadBenchModel(), loadPlantModel(), loadDoorModel()]).then(() => {
     addCeilingLight();
     render();
 });
