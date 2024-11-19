@@ -3,10 +3,10 @@ import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/
 //import ceilingTextures from './ceilingTextures.js'; // Import ceiling textures
 import {
     colorTexture,
-    displacementTexture,
+    //displacementTexture,
     aoTexture,
     emissionTexture,
-    heightTexture,
+    //heightTexture,
     // metalnessTexture,
     normalGLTexture,
     roughnessTexture,
@@ -43,7 +43,7 @@ const floorMaterial = new THREE.MeshStandardMaterial({
     map:  colorTextureF,
     displacementMap: displacementTextureF,   // Displacement map
     normalMap: normalGLTextureF,        // Normal map
-    normalMapType: THREE.NormalMap,    // Type of normal map
+    //normalMapType: THREE.NormalMap,    // Type of normal map
     roughnessMap: roughnessTextureF,    // Roughness map
     displacementScale: 0.1,            // Displacement intensity
     side: THREE.DoubleSide,
@@ -56,23 +56,17 @@ const wallMaterial = new THREE.MeshStandardMaterial({
 
 const ceilingMaterial = new THREE.MeshStandardMaterial({
     map: colorTexture,                // Base color map
-    displacementMap: displacementTexture,   // Displacement map
+    //displacementMap: displacementTexture,   // Displacement map
     aoMap: aoTexture,                      // Ambient occlusion map
     emissiveMap: emissionTexture,      // Emissive texture (for glow)
     emissive: 0xFFFFFF,                // Emissive color (white light)
     emissiveIntensity: 0.1,              // Intensity of the emissive light
     //metalnessMap: metalnessTexture,    // Metalness map
     roughness: 0.05,  // Make the surface smoother (lower roughness value for shiny glass)
-    transparent: true,  // Glass should be transparent
-    refractionRatio: 0.98,  // Refraction ratio for glass (light bending inside)
-    envMapIntensity: 1.0,  // Reflection intensity from the environment map (high reflection)
-    clearcoat: 1,  // Clearcoat for extra glossiness on top of the glass
-    clearcoatRoughness: 0,  // Set to 0 to make the clearcoat smooth (perfectly shiny)
     normalMap: normalGLTexture,        // Normal map
-    normalMapType: THREE.NormalMap,    // Type of normal map
-    heightMap: heightTexture,
+    //normalMapType: THREE.TangentSpaceNormalMap,    // Type of normal map
     roughnessMap: roughnessTexture,    // Roughness map
-    displacementScale: 0.1,            // Displacement intensity
+    //displacementScale: 0.1,            // Displacement intensity
     side: THREE.DoubleSide,           // Render both sides of the geometry
 });
 

@@ -4,7 +4,7 @@ import * as THREE from 'three';
 const textureLoader = new THREE.TextureLoader();
 
 const colorTexture = textureLoader.load("glass/colour.jpg");
-const displacementTexture = textureLoader.load("glass/dis.jpg");
+//const displacementTexture = textureLoader.load("glass/dis.jpg");
 const aoTexture = textureLoader.load("glass/ao.jpg");
 const emissionTexture = textureLoader.load("glass/glass.jpg");
 //const metalnessTexture = textureLoader.load("glass/met.jpg");
@@ -14,7 +14,7 @@ const heightTexture = textureLoader.load("glass/height.jpg");
 
 // Set texture parameters
 colorTexture.wrapS = colorTexture.wrapT = THREE.RepeatWrapping;
-displacementTexture.wrapS = displacementTexture.wrapT = THREE.RepeatWrapping;
+//displacementTexture.wrapS = displacementTexture.wrapT = THREE.RepeatWrapping;
 aoTexture.wrapS = aoTexture.wrapT = THREE.RepeatWrapping;
 emissionTexture.wrapS = emissionTexture.wrapT = THREE.RepeatWrapping;
 //metalnessTexture.wrapS = metalnessTexture.wrapT = THREE.RepeatWrapping;
@@ -24,7 +24,7 @@ heightTexture.wrapS = roughnessTexture.wrapT = THREE.RepeatWrapping;
 
 export {
     colorTexture,
-    displacementTexture,
+    //displacementTexture,
     aoTexture,
     emissionTexture,
     //metalnessTexture,
