@@ -6,7 +6,8 @@ import {
     displacementTexture,
     aoTexture,
     emissionTexture,
-    metalnessTexture,
+    heightTexture,
+    // metalnessTexture,
     normalGLTexture,
     roughnessTexture,
   } from './ceilingTextures.js';
@@ -27,29 +28,55 @@ camera.position.set(0, 1.6, 3);  // Start the camera above the floor
 const textureLoader = new THREE.TextureLoader();
 const floorTexture = textureLoader.load('textures/floor.jpg');
 
+
+
+// floor 2
+
+const colorTextureF = textureLoader.load("marble/color.jpg");
+const displacementTextureF = textureLoader.load("marble/dis.jpg");
+const normalGLTextureF = textureLoader.load("marble/normgl.jpg");
+const roughnessTextureF = textureLoader.load("marble/rou.jpg");
+
+
 // Create materials
 const floorMaterial = new THREE.MeshStandardMaterial({
-    map: floorTexture,
+    map:  colorTextureF,
+    displacementMap: displacementTextureF,   // Displacement map
+    normalMap: normalGLTextureF,        // Normal map
+    normalMapType: THREE.NormalMap,    // Type of normal map
+    roughnessMap: roughnessTextureF,    // Roughness map
+    displacementScale: 0.1,            // Displacement intensity
     side: THREE.DoubleSide,
 });
 
-const wallMaterial = new THREE.MeshBasicMaterial({
-    color: 0xe0e0e0,
+const wallMaterial = new THREE.MeshStandardMaterial({
+    color: 0xe6ebd7,
     side: THREE.DoubleSide,
 });
 
-const ceilingMaterial = new THREE.MeshBasicMaterial({
-    map: colorTexture,
-    displacementMap: displacementTexture,
-    aoMap: aoTexture,
-    emissiveMap: emissionTexture,
-    metalnessMap: metalnessTexture,
-    normalMap: normalGLTexture,
-    normalMapType: THREE.NormalMap,
-    roughnessMap: roughnessTexture,
-    displacementScale: 0.1,
-    side: THREE.DoubleSide,
-}); 
+const ceilingMaterial = new THREE.MeshStandardMaterial({
+    map: colorTexture,                // Base color map
+    displacementMap: displacementTexture,   // Displacement map
+    aoMap: aoTexture,                      // Ambient occlusion map
+    emissiveMap: emissionTexture,      // Emissive texture (for glow)
+    emissive: 0xFFFFFF,                // Emissive color (white light)
+    emissiveIntensity: 0.1,              // Intensity of the emissive light
+    //metalnessMap: metalnessTexture,    // Metalness map
+    roughness: 0.05,  // Make the surface smoother (lower roughness value for shiny glass)
+    transparent: true,  // Glass should be transparent
+    refractionRatio: 0.98,  // Refraction ratio for glass (light bending inside)
+    envMapIntensity: 1.0,  // Reflection intensity from the environment map (high reflection)
+    clearcoat: 1,  // Clearcoat for extra glossiness on top of the glass
+    clearcoatRoughness: 0,  // Set to 0 to make the clearcoat smooth (perfectly shiny)
+    normalMap: normalGLTexture,        // Normal map
+    normalMapType: THREE.NormalMap,    // Type of normal map
+    heightMap: heightTexture,
+    roughnessMap: roughnessTexture,    // Roughness map
+    displacementScale: 0.1,            // Displacement intensity
+    side: THREE.DoubleSide,           // Render both sides of the geometry
+});
+
+
 
 // Set the new dimensions for the rectangular room
 const roomWidth = 15;
@@ -134,11 +161,12 @@ screenMesh.rotation.y = Math.PI; // Rotate to face the camera or preferred direc
 scene.add(screenMesh);
 
 // Add lighting
-const ambientLight = new THREE.AmbientLight(0x404040,0.5); // Ambient light to ensure the model isn't completely dark
+const ambientLight = new THREE.AmbientLight(0x404040,15); // Ambient light to ensure the model isn't completely dark
 scene.add(ambientLight);
 
+
 const directionalLight = new THREE.DirectionalLight(0xffffff, 2.7); // Directional light for better shadows and highlights
-directionalLight.position.set(5, 10, 5).normalize();
+directionalLight.position.set(5, 15, 5).normalize();
 scene.add(directionalLight);
 
 // Load the texture for the artwork on the right wall
@@ -253,12 +281,12 @@ function loadPlantModel() {
 
 
 
-            // Adjust the position, rotation, and scale of the second plant model
-            plantModel1.position.set(-(roomWidth / 2 - 1.5), 0, -3.5);  // Position the second plant
-            plantModel1.rotation.y = -Math.PI / 2; // Rotate the second plant
-            plantModel1.scale.set(0.03, 0.04, 0.03); // Scale the second plant
+            // Adjust the position, rotation
+            plantModel1.position.set(-(roomWidth / 2 - 1.5), 0, -3.5);  // Position 
+            plantModel1.rotation.y = -Math.PI / 2; // Rotate
+            plantModel1.scale.set(0.03, 0.04, 0.03); // Scale 
 
-            // Add the models to the scene
+            // Add the model to the scene
 
             scene.add(plantModel1);
 
@@ -266,6 +294,7 @@ function loadPlantModel() {
         }, undefined, reject);
     });
 }
+
 
 
 
@@ -399,7 +428,7 @@ function addCeilingLight() {
     };
 
     // Create the spotlight
-    const spotLight = new THREE.SpotLight(0xffffff, 10, roomWidth * 2, 0.3); // Adjust intensity and cone angle as needed
+    const spotLight = new THREE.SpotLight(0xffffff, 15, roomWidth * 2, 0.3); // Adjust intensity and cone angle as needed
     spotLight.position.set(lightPosition.x, lightPosition.y, lightPosition.z);
 
     // To face downward, adjust the light's target
