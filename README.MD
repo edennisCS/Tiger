@@ -1,5 +1,5 @@
 # Tiger
-![alt text](/Screenshot 2024-11-20 101106.png)
+![Screenshot](Screenshot 2024-11-20 101106.png)
 Tiger three.js experience for the web
 This is a small virtual museum demo where you walk around and look at the tiger themed artwork, video and 3D model.
 
