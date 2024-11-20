@@ -2,6 +2,10 @@
 # Tiger
 
 Tiger three.js experience for the web
+This is a small virtual museum demo where you walk around and look at the tiger themed artwork, video and 3D model.
+
+Visit at: https://tiger-tawny.vercel.app/
+
 
 ## Acknowledgements
 
