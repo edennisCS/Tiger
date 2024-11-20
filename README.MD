@@ -1,4 +1,3 @@
-
 # Tiger
 
 Tiger three.js experience for the web
