@@ -11,17 +11,44 @@ import {
     normalGLTexture,
     roughnessTexture,
   } from './ceilingTextures.js';
-
+import { CSS2DRenderer, CSS2DObject } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/renderers/CSS2DRenderer.js';
 // Set up scene, camera, renderer
 const w = window.innerWidth;
 const h = window.innerHeight;
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(w, h);
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2(0, 0);
+let tigerLabel; 
+let model;
+
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.domElement.style.position = 'absolute';
+renderer.domElement.style.top = '0px';
+renderer.domElement.style.zIndex = '1'; 
 document.body.appendChild(renderer.domElement);
+
+const labelRenderer = new CSS2DRenderer();
+labelRenderer.setSize(window.innerWidth, window.innerHeight);
+labelRenderer.domElement.style.position = 'absolute';
+labelRenderer.domElement.style.top = '0px';
+labelRenderer.domElement.style.zIndex = '10'; // Way above the canvas
+labelRenderer.domElement.style.pointerEvents = 'none'; // Essential for movement
+document.body.appendChild(labelRenderer.domElement);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, w / h, 0.1, 1000);
+
+
+// Listening for click
+window.addEventListener('mousemove', (event) => {
+    // Converts mouse position to "Normalized Device Coordinates" (-1 to +1)
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+});
+
+
 camera.position.set(0, 1.6, 3);  // Start the camera above the floor
 
 // Load the texture for the floor
@@ -212,7 +239,7 @@ scene.add(leftArtMesh);
 
 // Initialize GLTFLoader
 const loader = new GLTFLoader();
-let model;
+
 
 // Load the main model
 function loadModel() {
@@ -235,6 +262,27 @@ function loadModel() {
                     }
                 }
             });
+            // const labelDiv = document.createElement('div');
+            // labelDiv.className = 'annotation-label'; 
+            // labelDiv.textContent = 'Bengal Tiger';
+            // labelDiv.style.color = 'white';
+            // labelDiv.style.background = 'rgba(0,0,0,0.7)';
+            // labelDiv.style.padding = '5px 10px';
+            // labelDiv.style.borderRadius = '5px';
+            // labelDiv.style.pointerEvents = 'auto'; // Allows clicking if needed
+            
+            // tigerLabel = new CSS2DObject(labelDiv);
+            // tigerLabel.position.set(0, 1.5, 0); 
+
+            const labelDiv = document.createElement('div');
+            labelDiv.className = 'annotation-label'; 
+            labelDiv.textContent = 'Bengal Tiger';
+
+            tigerLabel = new CSS2DObject(labelDiv);
+            // Position it at the center of the room, 2 units up, 
+            // so you can see it immediately when you start.
+            tigerLabel.position.set(0, 1.5, 0); 
+            scene.add(tigerLabel);
 
             model.position.set(0, 1, 0);  // Adjust the position as needed
             model.scale.set(0.7, 0.7, 0.7); // Scale the model to fit the room
@@ -465,19 +513,31 @@ function addCeilingLight() {
 // Render loop
 function render() {
     updateCameraPosition();
-
-    // Update the video texture
     updateTexture(video, videoTexture);
 
-    // Spin the model
     if (model) {
-        model.rotation.y += 0.01; // Rotate the model for demonstration
+        model.rotation.y += 0.01;
+
+        // RAYCASTING
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObject(model, true);
+
+        if (tigerLabel) {
+            if (intersects.length > 0) {
+                // Show it when hovering
+                tigerLabel.element.style.opacity = '1';
+                tigerLabel.element.style.display = 'block';
+            } else {
+                // Hide it when not hovering
+                tigerLabel.element.style.opacity = '0';
+            }
+        }
     }
 
     renderer.render(scene, camera);
+    labelRenderer.render(scene, camera); 
     requestAnimationFrame(render);
 }
-
 // Load models and start rendering
 Promise.all([loadModel(), loadBenchModel(), loadPlantModel(), loadDoorModel()]).then(() => {
     addCeilingLight();
